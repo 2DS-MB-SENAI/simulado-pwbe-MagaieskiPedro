@@ -1,4 +1,5 @@
-name: Autograding
+name: Autograding and Django Tests
+
 on: [push]
 
 jobs:
@@ -6,5 +7,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
+      # Configuração do Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      # Instalação de dependências
+      - name: Install dependencies
+        run: |
+          pip install django djangorestframework djangorestframework-simplejwt
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      # Passo original do autograding
       - name: Run Autograding
         uses: education/autograding@v1
+      
+      # Novos testes Django (opcional)
+      - name: Run Django Tests
+        run: |
+          python manage.py migrate
+          python manage.py test
