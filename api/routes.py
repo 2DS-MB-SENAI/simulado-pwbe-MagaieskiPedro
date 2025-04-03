@@ -3,5 +3,6 @@ from . import views
 urlpatterns = [
     path('auth/registro/',view=views.registrar, name="registro"),
     path('auth/login/',view=views.login, name="login"),
-    path('api/livros/',view=views.listar_livros_endpoint, name="listar_livros"),
+    path('api/livros/',view=views.listar_livros_endpoint, name="listar_livros_view"),
+    path('livros/',view=views.listar_livros, name="listar_livros"),
 ]
