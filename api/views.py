@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Livros,Usuario
+from .models import livros,Usuario
 from .serializer import LivrosSerializer,UsuarioSerializer
 # AUTH:
 @api_view(['POST'])
@@ -39,16 +39,17 @@ def login(request):
             },status=status.HTTP_200_OK)
     else:
         return Response({"Erro":"usuario ou senha não encontrados"},status=status.HTTP_400_BAD_REQUEST)
+
 # CRUD :
 @api_view(['GET','POST'])
 def listar_livros(request):
     if request.method == 'POST':
-        serializer = UsuarioSerializer(data= request.data)
+        serializer = LivrosSerializer(data= request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-            usuario = Usuario.objects.all()
-            serializer = UsuarioSerializer(usuario, many=True)
+            livro = livros.objects.all()
+            serializer = LivrosSerializer(livro, many=True)
             return Response(serializer.data)
