@@ -56,4 +56,4 @@ def listar_livros_endpoint(request):
 # forms :
 def listar_livros(request):
     livros = Livros.objects.all()
-    return render(request, 'blog/lista_postagens.html', {'postagens':postagens})
+    return render(request, 'livros.html', {'livros':livros})
