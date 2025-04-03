@@ -40,3 +40,15 @@ def login(request):
     else:
         return Response({"Erro":"usuario ou senha não encontrados"},status=status.HTTP_400_BAD_REQUEST)
 # CRUD :
+@api_view(['GET','POST'])
+def listar_livros(request):
+    if request.method == 'POST':
+        serializer = UsuarioSerializer(data= request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'GET':
+            usuario = Usuario.objects.all()
+            serializer = UsuarioSerializer(usuario, many=True)
+            return Response(serializer.data)
