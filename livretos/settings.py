@@ -38,7 +38,7 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
 }
-AUTH_USER_MODEL = 'api.Usuario'
+AUTH_USER_MODEL = 'livros.Usuario'
 
 # Application definition
 
