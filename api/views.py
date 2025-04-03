@@ -6,8 +6,8 @@ from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 
-from .models import livros,Usuario
-from .serializer import LivrosSerializer,UsuarioSerializer
+from .models import Livros,Usuario
+from .serializer import LivrosSerializer
 # AUTH:
 @api_view(['POST'])
 def registrar(request):
@@ -50,6 +50,6 @@ def listar_livros(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-            livro = livros.objects.all()
+            livro = Livros.objects.all()
             serializer = LivrosSerializer(livro, many=True)
             return Response(serializer.data)
