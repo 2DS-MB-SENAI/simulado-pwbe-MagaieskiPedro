@@ -40,9 +40,9 @@ def login(request):
     else:
         return Response({"Erro":"usuario ou senha não encontrados"},status=status.HTTP_400_BAD_REQUEST)
 
-# CRUD :
+# api view :
 @api_view(['GET','POST'])
-def listar_livros(request):
+def listar_livros_endpoint(request):
     if request.method == 'POST':
         serializer = LivrosSerializer(data= request.data)
         if serializer.is_valid():
@@ -53,3 +53,7 @@ def listar_livros(request):
             livro = Livros.objects.all()
             serializer = LivrosSerializer(livro, many=True)
             return Response(serializer.data)
+# forms :
+def listar_livros(request):
+    livros = Livros.objects.all()
+    return render(request, 'blog/lista_postagens.html', {'postagens':postagens})
